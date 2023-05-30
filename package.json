@@ -1,0 +1,27 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnastasiaPovarkova/movies-explorer-api.git"
+  },
+  "author": "Ana Povarkova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnastasiaPovarkova/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/AnastasiaPovarkova/movies-explorer-api#readme",
+  "devDependencies": {
+    "eslint": "^8.38.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "nodemon": "^2.0.22"
+  }
+}
