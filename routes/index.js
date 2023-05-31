@@ -1,11 +1,13 @@
 const router = require('express').Router();
+
+// const cors = require('cors');
 const { celebrate } = require('celebrate');
 const { errors } = require('celebrate');
-// const cors = require('cors');
 const { requestLogger, errorLogger } = require('../middlewares/logger');
 
 const { login, createUser } = require('../controllers/users');
 const auth = require('../middlewares/auth');
+const { rateLimiter } = require('../middlewares/rateLimiter');
 const centralizedErrorHandler = require('../middlewares/centralizedErrorHandler');
 const NotFoundError = require('../errors/not-found-err');
 
@@ -21,6 +23,8 @@ const NotFoundError = require('../errors/not-found-err');
 const { JoiBodyEmailPassword, JoiBodyEmailPasswordName } = require('../utils/validationConstants');
 
 router.use(requestLogger); // подключаем логгер запросов
+
+router.use(rateLimiter); // Use to limit repeated requests to public APIs and/or endpoints
 
 router.get('/crash-test', () => {
   setTimeout(() => {

@@ -44,7 +44,6 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovieById = (req, res, next) => {
-  console.log('req.params: ', req.params);
   Movie.findById({ _id: req.params.movieId })
     .populate(['owner'])
     .then((movie) => {
