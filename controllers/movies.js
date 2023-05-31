@@ -14,7 +14,7 @@ module.exports.getMovies = (req, res, next) => {
 module.exports.createMovie = (req, res, next) => {
   const {
     country,
-    director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId,
+    director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId,
   } = req.body;
   const userId = req.user._id;
 
@@ -25,7 +25,7 @@ module.exports.createMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
     nameRU,
     nameEN,
     thumbnail,
@@ -44,6 +44,7 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovieById = (req, res, next) => {
+  console.log('req.params: ', req.params);
   Movie.findById({ _id: req.params.movieId })
     .populate(['owner'])
     .then((movie) => {

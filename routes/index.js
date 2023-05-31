@@ -22,11 +22,11 @@ const { JoiBodyEmailPassword, JoiBodyEmailPasswordName } = require('../utils/val
 
 router.use(requestLogger); // подключаем логгер запросов
 
-// router.get('/crash-test', () => {
-//   setTimeout(() => {
-//     throw new Error('Сервер сейчас упадёт');
-//   }, 0);
-// });
+router.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 // router.use(cors({
 //   origin: allowedCors,
