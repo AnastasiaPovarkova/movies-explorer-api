@@ -3,9 +3,9 @@ const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const User = require('../models/user');
 require('dotenv').config();
-const NotFoundError = require('../errors/not-found-err');
-const BadRequestError = require('../errors/bad-request-err');
-const ConflictError = require('../errors/conflict-err');
+const NotFoundError = require('../utils/errors/not-found-err');
+const BadRequestError = require('../utils/errors/bad-request-err');
+const ConflictError = require('../utils/errors/conflict-err');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
