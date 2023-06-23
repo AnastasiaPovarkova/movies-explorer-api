@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-// const cors = require('cors');
+const cors = require('cors');
 const { celebrate } = require('celebrate');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('../middlewares/logger');
@@ -11,14 +11,16 @@ const { rateLimiter } = require('../middlewares/rateLimiter');
 const centralizedErrorHandler = require('../middlewares/centralizedErrorHandler');
 const NotFoundError = require('../utils/errors/not-found-err');
 
-// const allowedCors = [
-//   'https://praktikum.tk',
-//   'http://praktikum.tk',
-//   'http://localhost:3000',
-//   'http://127.0.0.1:3000',
-//   'http://mestofront.anstpov.nomoredomains.monster',
-//   'https://mestofront.anstpov.nomoredomains.monster',
-// ];
+const allowedCors = [
+  'https://praktikum.tk',
+  'http://praktikum.tk',
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'http://localhost:3006',
+  'http://127.0.0.1:3006',
+  'http://mestofront.anstpov.nomoredomains.monster',
+  'https://mestofront.anstpov.nomoredomains.monster',
+];
 
 const { JoiBodyEmailPassword, JoiBodyEmailPasswordName } = require('../utils/validationConstants');
 
@@ -32,10 +34,10 @@ router.get('/crash-test', () => {
   }, 0);
 });
 
-// router.use(cors({
-//   origin: allowedCors,
-//   credentials: true,
-// })); // подключаем CORS
+router.use(cors({
+  origin: allowedCors,
+  credentials: true,
+})); // подключаем CORS
 
 router.post('/signin', celebrate(JoiBodyEmailPassword), login);
 router.post('/signup', celebrate(JoiBodyEmailPasswordName), createUser);
