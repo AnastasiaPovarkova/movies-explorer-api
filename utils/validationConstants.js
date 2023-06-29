@@ -36,7 +36,7 @@ module.exports = Object.freeze({
       description: Joi.string().required(),
       image: Joi.object().required(),
       trailerLink: Joi.string().required().regex(urlRegular),
-      thumbnail: Joi.object().required(),
+      thumbnail: Joi.string().required(),
       movieId: Joi.number().required(),
       nameRU: Joi.string().required(),
       nameEN: Joi.string().required(),

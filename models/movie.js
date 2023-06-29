@@ -28,13 +28,13 @@ const movieSchema = new mongoose.Schema(
       required: [true, 'Поле "image" (ссылка на постер к фильму) должно быть заполнено'],
     },
     trailerLink: {
-      type: Object,
+      type: String,
       required: [true, 'Поле "trailerLink" (ссылка на трейлер фильма) должно быть заполнено'],
+      validate: [isURL, 'Поле "thumbnail" (постер к фильму) неверно заполнено'],
     },
     thumbnail: {
       type: String,
       required: [true, 'Поле "thumbnail" (постер к фильму) должно быть заполнено'],
-      validate: [isURL, 'Поле "thumbnail" (постер к фильму) неверно заполнено'],
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
