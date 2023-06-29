@@ -67,6 +67,14 @@ module.exports.createUser = (req, res, next) => {
     });
 };
 
+module.exports.exit = (req, res) => {
+  res.status(200).clearCookie('jwt', {
+    httpOnly: true,
+    sameSite: 'none',
+    secure: true,
+  }).send({ message: 'Выход' });
+};
+
 module.exports.updateUserInfo = (req, res, next) => {
   const { name, email } = req.body;
   User.findByIdAndUpdate(

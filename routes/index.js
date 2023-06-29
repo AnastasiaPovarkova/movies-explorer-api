@@ -5,7 +5,7 @@ const { celebrate } = require('celebrate');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('../middlewares/logger');
 
-const { login, createUser } = require('../controllers/users');
+const { login, createUser, exit } = require('../controllers/users');
 const auth = require('../middlewares/auth');
 const { rateLimiter } = require('../middlewares/rateLimiter');
 const centralizedErrorHandler = require('../middlewares/centralizedErrorHandler');
@@ -46,6 +46,8 @@ router.use(auth);
 
 router.use('/users', require('./users'));
 router.use('/movies', require('./movies'));
+
+router.get('/logout', exit);
 
 router.use('*', (req, res, next) => next(new NotFoundError('Страница не найдена')));
 
