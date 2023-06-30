@@ -95,6 +95,8 @@ module.exports.updateUserInfo = (req, res, next) => {
       if (err instanceof mongoose.Error.ValidationError) {
         const message = Object.values(err.errors).map((error) => error.message).join('; ');
         next(new BadRequestError(message));
+      } else if (err.code === 11000) {
+        next(new ConflictError('Email уже зарегистрирован'));
       } else {
         next(err);
       }
