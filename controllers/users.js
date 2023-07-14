@@ -70,8 +70,8 @@ module.exports.createUser = (req, res, next) => {
 module.exports.exit = (req, res) => {
   res.status(200).clearCookie('jwt', {
     httpOnly: true,
-    sameSite: 'none',
-    secure: true,
+    sameSite: true,
+    // secure: true,
   }).send({ message: 'Выход' });
 };
 
