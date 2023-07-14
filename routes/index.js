@@ -1,9 +1,8 @@
 const router = require('express').Router();
-const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
 
 const cors = require('cors');
-const { celebrate } = require('celebrate');
-const { errors } = require('celebrate');
+const { celebrate, errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('../middlewares/logger');
 
 const { login, createUser, exit } = require('../controllers/users');
@@ -21,21 +20,15 @@ const allowedCors = [
 
 const { JoiBodyEmailPassword, JoiBodyEmailPasswordName } = require('../utils/validationConstants');
 
-router.use(requestLogger); // подключаем логгер запросов
-
-router.use(cookieParser());
+router.use(helmet()); // Helmet helps secure Express apps by setting HTTP response headers.
 router.use(rateLimiter); // Use to limit repeated requests to public APIs and/or endpoints
-
-router.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
 
 router.use(cors({
   origin: allowedCors,
   credentials: true,
 })); // подключаем CORS
+
+router.use(requestLogger); // подключаем логгер запросов
 
 router.post('/signin', celebrate(JoiBodyEmailPassword), login);
 router.post('/signup', celebrate(JoiBodyEmailPasswordName), createUser);
