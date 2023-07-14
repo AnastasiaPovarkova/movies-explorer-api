@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const cookieParser = require('cookie-parser');
 
 const cors = require('cors');
 const { celebrate } = require('celebrate');
@@ -12,12 +13,8 @@ const centralizedErrorHandler = require('../middlewares/centralizedErrorHandler'
 const NotFoundError = require('../utils/errors/not-found-err');
 
 const allowedCors = [
-  'https://praktikum.tk',
-  'http://praktikum.tk',
   'http://localhost:3000',
-  'http://127.0.0.1:3000',
   'http://localhost:3006',
-  'http://127.0.0.1:3006',
   'http://front.diploma.anstpov.nomoreparties.sbs',
   'https://front.diploma.anstpov.nomoreparties.sbs',
 ];
@@ -26,6 +23,7 @@ const { JoiBodyEmailPassword, JoiBodyEmailPasswordName } = require('../utils/val
 
 router.use(requestLogger); // подключаем логгер запросов
 
+router.use(cookieParser());
 router.use(rateLimiter); // Use to limit repeated requests to public APIs and/or endpoints
 
 router.get('/crash-test', () => {
