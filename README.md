@@ -8,6 +8,6 @@
 
 IP 158.160.98.150
 
-Frontend 
+Frontend https://front.diploma.anstpov.nomoreparties.sbs/
 
 Backend https://api.diploma.anstpov.nomoredomains.rocks
