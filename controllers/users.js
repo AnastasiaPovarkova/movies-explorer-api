@@ -66,12 +66,12 @@ module.exports.createUser = (req, res, next) => {
     });
 };
 
-module.exports.exit = (req, res) => {
+module.exports.exit = (req, res, next) => {
   res.status(200).clearCookie('jwt', {
     httpOnly: true,
     sameSite: true,
-    // secure: true,
-  }).send({ message: 'Выход' });
+  }).send({ message: 'Выход' })
+    .catch(next);
 };
 
 module.exports.updateUserInfo = (req, res, next) => {
