@@ -28,7 +28,7 @@ router.use(auth);
 router.use('/users', require('./users'));
 router.use('/movies', require('./movies'));
 
-router.get('/logout', exit);
+router.post('/logout', exit);
 
 router.use('*', (req, res, next) => next(new NotFoundError('Страница не найдена')));
 
