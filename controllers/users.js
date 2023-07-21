@@ -68,10 +68,7 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.exit = (req, res) => {
   console.log('res:', res, res.Cookie);
-  res.clearCookie('jwt', {
-    httpOnly: true,
-    sameSite: true,
-  });
+  res.clearCookie('jwt');
   res.send({ message: 'Выход' });
 };
 
