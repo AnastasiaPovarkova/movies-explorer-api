@@ -35,7 +35,7 @@ module.exports.login = (req, res, next) => {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
         sameSite: 'none',
-        // secure: true,
+        secure: true,
       }).send({ email });
     })
     .catch(next);
@@ -67,6 +67,14 @@ module.exports.createUser = (req, res, next) => {
     });
 };
 
+module.exports.exit = (req, res) => {
+  res.status(200).clearCookie('jwt', {
+    httpOnly: true,
+    sameSite: true,
+    // secure: true,
+  }).send({ message: 'Выход' });
+};
+
 module.exports.updateUserInfo = (req, res, next) => {
   const { name, email } = req.body;
   User.findByIdAndUpdate(
@@ -87,6 +95,8 @@ module.exports.updateUserInfo = (req, res, next) => {
       if (err instanceof mongoose.Error.ValidationError) {
         const message = Object.values(err.errors).map((error) => error.message).join('; ');
         next(new BadRequestError(message));
+      } else if (err.code === 11000) {
+        next(new ConflictError('Email уже зарегистрирован'));
       } else {
         next(err);
       }

@@ -1,41 +1,37 @@
 const router = require('express').Router();
+const helmet = require('helmet');
 
 // const cors = require('cors');
-const { celebrate } = require('celebrate');
-const { errors } = require('celebrate');
+const { celebrate, errors } = require('celebrate');
+const cors = require('../middlewares/cors');
 const { requestLogger, errorLogger } = require('../middlewares/logger');
 
-const { login, createUser } = require('../controllers/users');
+const { login, createUser, exit } = require('../controllers/users');
 const auth = require('../middlewares/auth');
 const { rateLimiter } = require('../middlewares/rateLimiter');
 const centralizedErrorHandler = require('../middlewares/centralizedErrorHandler');
 const NotFoundError = require('../utils/errors/not-found-err');
 
 // const allowedCors = [
-//   'https://praktikum.tk',
-//   'http://praktikum.tk',
 //   'http://localhost:3000',
-//   'http://127.0.0.1:3000',
-//   'http://mestofront.anstpov.nomoredomains.monster',
-//   'https://mestofront.anstpov.nomoredomains.monster',
+//   'http://localhost:3006',
+//   'http://front.diploma.anstpov.nomoreparties.sbs',
+//   'https://front.diploma.anstpov.nomoreparties.sbs',
 // ];
 
 const { JoiBodyEmailPassword, JoiBodyEmailPasswordName } = require('../utils/validationConstants');
 
-router.use(requestLogger); // подключаем логгер запросов
-
+router.use(helmet()); // Helmet helps secure Express apps by setting HTTP response headers.
 router.use(rateLimiter); // Use to limit repeated requests to public APIs and/or endpoints
-
-router.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
 
 // router.use(cors({
 //   origin: allowedCors,
 //   credentials: true,
 // })); // подключаем CORS
+
+router.use(cors);
+
+router.use(requestLogger); // подключаем логгер запросов
 
 router.post('/signin', celebrate(JoiBodyEmailPassword), login);
 router.post('/signup', celebrate(JoiBodyEmailPasswordName), createUser);
@@ -44,6 +40,8 @@ router.use(auth);
 
 router.use('/users', require('./users'));
 router.use('/movies', require('./movies'));
+
+router.get('/logout', exit);
 
 router.use('*', (req, res, next) => next(new NotFoundError('Страница не найдена')));
 
