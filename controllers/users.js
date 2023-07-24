@@ -67,9 +67,8 @@ module.exports.createUser = (req, res, next) => {
 };
 
 module.exports.exit = (req, res) => {
-  console.log('res:', res, res.Cookie);
   res.clearCookie('jwt');
-  res.send({ message: 'Выход' });
+  res.status(200).json('User Logged out');
 };
 
 module.exports.updateUserInfo = (req, res, next) => {

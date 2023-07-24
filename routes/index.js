@@ -22,13 +22,12 @@ router.use(requestLogger); // подключаем логгер запросов
 
 router.post('/signin', celebrate(JoiBodyEmailPassword), login);
 router.post('/signup', celebrate(JoiBodyEmailPasswordName), createUser);
+router.post('/logout', exit);
 
 router.use(auth);
 
 router.use('/users', require('./users'));
 router.use('/movies', require('./movies'));
-
-router.post('/logout', exit);
 
 router.use('*', (req, res, next) => next(new NotFoundError('Страница не найдена')));
 
