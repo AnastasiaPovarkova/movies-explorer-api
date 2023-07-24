@@ -68,10 +68,7 @@ module.exports.createUser = (req, res, next) => {
 };
 
 module.exports.exit = (req, res) => {
-  res.clearCookie('jwt', {
-    sameSite: 'Lax',
-    secure: true,
-  });
+  res.clearCookie('jwt');
   res.status(200).json('User Logged out');
 };
 
