@@ -34,9 +34,9 @@ module.exports.login = (req, res, next) => {
       res.status(200).cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
-        sameSite: 'none',
+        sameSite: 'Strict',
         secure: true,
-        domain: '.diploma.anstpov.nomoreparties.sbs',
+        domain: 'frontend.diploma.anstpov.nomoreparties.sbs',
       }).send({ email });
     })
     .catch(next);
