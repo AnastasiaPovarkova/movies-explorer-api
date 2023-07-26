@@ -36,7 +36,7 @@ module.exports.login = (req, res, next) => {
         httpOnly: true,
         sameSite: 'Lax',
         secure: true,
-        domain: 'diploma.anstpov.nomoreparties.sbs',
+        domain: 'nomoreparties.sbs',
       }).send({ email });
     })
     .catch(next);
