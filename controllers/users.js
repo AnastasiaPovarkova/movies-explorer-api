@@ -34,9 +34,7 @@ module.exports.login = (req, res, next) => {
       res.status(200).cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
-        sameSite: true,
-        secure: true,
-        domain: 'nomoreparties.sbs',
+        sameSite: true, // куки посылаются, если запрос с одного и того же домена
       }).send({ email });
     })
     .catch(next);
