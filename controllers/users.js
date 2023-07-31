@@ -36,7 +36,7 @@ module.exports.login = (req, res, next) => {
         httpOnly: true,
         sameSite: 'none',
         secure: true,
-      }).send({ email });
+      }).send({ token });
     })
     .catch(next);
 };
