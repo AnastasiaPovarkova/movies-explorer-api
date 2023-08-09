@@ -6,7 +6,7 @@ const cors = require('../middlewares/cors');
 const { requestLogger, errorLogger } = require('../middlewares/logger');
 
 const { login, createUser, exit } = require('../controllers/users');
-// const auth = require('../middlewares/auth');
+const auth = require('../middlewares/auth');
 const { rateLimiter } = require('../middlewares/rateLimiter');
 const centralizedErrorHandler = require('../middlewares/centralizedErrorHandler');
 const NotFoundError = require('../utils/errors/not-found-err');
@@ -24,7 +24,7 @@ router.post('/signin', celebrate(JoiBodyEmailPassword), login);
 router.post('/signup', celebrate(JoiBodyEmailPasswordName), createUser);
 router.post('/logout', exit);
 
-// router.use(auth);
+router.use(auth);
 
 router.use('/users', require('./users'));
 router.use('/movies', require('./movies'));
