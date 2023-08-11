@@ -23,3 +23,5 @@ Frontend https://front.diploma.anstpov.nomoreparties.sbs/
 
 Backend https://api.diploma.anstpov.nomoredomains.rocks
 
+Репозиторий frontend: https://github.com/AnastasiaPovarkova/movies-explorer-frontend
+
